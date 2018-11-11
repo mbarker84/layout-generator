@@ -2,7 +2,16 @@ import React from 'react'
 
 class GridItem extends React.Component {
 	render() {
-		return <div className="gridItem">item</div>
+		const style = {
+			borderRadius: this.props.borderRadius,
+			backgroundColor: this.props.backgroundColor
+		}
+
+		return (
+			<div className="gridItem" style={style}>
+				{this.props.index}
+			</div>
+		)
 	}
 }
 

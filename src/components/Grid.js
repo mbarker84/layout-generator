@@ -3,12 +3,21 @@ import GridItem from './GridItem'
 
 class Grid extends React.Component {
 	render() {
-		const initialArray = Array(6).fill('')
+		const initialArray = Array(this.props.noOfItems).fill('')
+		const style = {
+			gridTemplateColumns: this.props.columns,
+			gridTemplateRows: this.props.rows,
+			backgroundColor: this.props.color
+		}
 
 		return (
-			<div className="grid">
-				{initialArray.map(({ index }) => (
-					<GridItem key={index} />
+			<div className="grid" style={style}>
+				{initialArray.map((el, index) => (
+					<GridItem
+						key={index}
+						index={index}
+						borderRadius={this.props.itemStyle[index]}
+					/>
 				))}
 			</div>
 		)
