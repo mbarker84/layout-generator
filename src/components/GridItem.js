@@ -4,14 +4,10 @@ class GridItem extends React.Component {
 	render() {
 		const style = {
 			borderRadius: this.props.borderRadius,
-			backgroundColor: this.props.backgroundColor
+			backgroundColor: `hsl(${this.props.itemColor}, 68%, 56%)`
 		}
 
-		return (
-			<div className="gridItem" style={style}>
-				{this.props.index}
-			</div>
-		)
+		return <div className="gridItem" style={style} />
 	}
 }
 

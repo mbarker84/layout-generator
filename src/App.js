@@ -7,9 +7,9 @@ import './App.css'
 class App extends React.Component {
 	state = {
 		noOfItems: 6,
-		layout: 1,
-		columns: '1fr 2fr 3fr',
-		rows: '1fr 2fr 3fr',
+		layout: {},
+		columns: '',
+		rows: '',
 		noOfTracks: 3,
 		maximum: 8,
 		itemStyles: [],
@@ -24,25 +24,57 @@ class App extends React.Component {
 	}
 
 	randBorderRadius = () => {
-		const arr = Array(8).fill('')
-		const bordersArray = arr.map(() => `${getRandomInt(20, 70)}%`)
+		const bordersArray = Array(8)
+			.fill('')
+			.map(() => `${getRandomInt(20, 70)}%`)
 		bordersArray.splice(4, 0, '/')
 
 		return bordersArray.join(' ')
 	}
 
 	itemBorderRadii = () => {
-		const itemsArray = Array(this.state.noOfItems).fill('')
+		return Array(this.state.noOfItems)
+			.fill('')
+			.map(() => this.randBorderRadius())
+	}
 
-		const newItems = itemsArray.map(() => this.randBorderRadius())
-		return newItems
+	itemColors = () => {
+		return Array(this.state.noOfItems)
+			.fill('')
+			.map(() => getRandomInt(0, 360))
+	}
+
+	switchLayout = () => {
+		const layoutNumber = getRandomInt(1, 4)
+
+		if (layoutNumber === 1) {
+			return {
+				row1: 'a a b',
+				row2: '. c b',
+				row3: '. c .'
+			}
+		} else if (layoutNumber === 2) {
+			return {
+				row1: 'a a .',
+				row2: 'a a b',
+				row3: '. c .'
+			}
+		} else if (layoutNumber === 3) {
+			return {
+				row1: '. a .',
+				row2: '. a b',
+				row3: 'c c b'
+			}
+		}
 	}
 
 	updateLayout = () => {
 		this.setState({
 			columns: this.generateValues(),
 			rows: this.generateValues(),
-			itemStyles: this.itemBorderRadii()
+			itemStyles: this.itemBorderRadii(),
+			itemColors: this.itemColors(),
+			layout: this.switchLayout()
 		})
 
 		console.log(this.state)
@@ -53,14 +85,25 @@ class App extends React.Component {
 	}
 
 	render() {
+		const {
+			noOfItems,
+			columns,
+			rows,
+			itemStyles,
+			itemColors,
+			layout
+		} = this.state
+
 		return (
 			<div className="App">
 				<Toolbar updateLayout={this.updateLayout} />
 				<Grid
-					noOfItems={this.state.noOfItems}
-					columns={this.state.columns}
-					rows={this.state.rows}
-					itemStyle={this.state.itemStyles}
+					noOfItems={noOfItems}
+					columns={columns}
+					rows={rows}
+					itemStyle={itemStyles}
+					itemColor={itemColors}
+					layout={layout}
 				/>
 			</div>
 		)

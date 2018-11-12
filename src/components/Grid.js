@@ -4,10 +4,12 @@ import GridItem from './GridItem'
 class Grid extends React.Component {
 	render() {
 		const initialArray = Array(this.props.noOfItems).fill('')
+		const { columns, rows, layout, itemStyle, itemColor } = this.props
+
 		const style = {
-			gridTemplateColumns: this.props.columns,
-			gridTemplateRows: this.props.rows,
-			backgroundColor: this.props.color
+			gridTemplateColumns: columns,
+			gridTemplateRows: rows,
+			gridTemplateAreas: `"${layout.row1}" "${layout.row2}" "${layout.row3}"`
 		}
 
 		return (
@@ -16,7 +18,8 @@ class Grid extends React.Component {
 					<GridItem
 						key={index}
 						index={index}
-						borderRadius={this.props.itemStyle[index]}
+						borderRadius={itemStyle[index]}
+						itemColor={itemColor[index]}
 					/>
 				))}
 			</div>
