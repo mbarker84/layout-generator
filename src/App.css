@@ -37,6 +37,16 @@
 	padding: 10px;
 	background-color: #302b38;
 	color: white;
+	display: flex;
+	align-items: center;
+}
+
+.input-group {
+	margin-left: 20px;	
+}
+
+.label {
+	margin-right: 10px;
 }
 
 button {

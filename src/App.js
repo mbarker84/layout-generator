@@ -68,6 +68,10 @@ class App extends React.Component {
 		}
 	}
 
+	updateMaximum = updatedMaximum => {
+		this.setState({ maximum: updatedMaximum })
+	}
+
 	updateLayout = () => {
 		this.setState({
 			columns: this.generateValues(),
@@ -76,8 +80,6 @@ class App extends React.Component {
 			itemColors: this.itemColors(),
 			layout: this.switchLayout()
 		})
-
-		console.log(this.state)
 	}
 
 	componentDidMount = () => {
@@ -91,12 +93,17 @@ class App extends React.Component {
 			rows,
 			itemStyles,
 			itemColors,
-			layout
+			layout,
+			maximum
 		} = this.state
 
 		return (
 			<div className="App">
-				<Toolbar updateLayout={this.updateLayout} />
+				<Toolbar
+					updateLayout={this.updateLayout}
+					maximum={maximum}
+					updateMaximum={this.updateMaximum}
+				/>
 				<Grid
 					noOfItems={noOfItems}
 					columns={columns}
